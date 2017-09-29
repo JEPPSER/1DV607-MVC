@@ -19,8 +19,7 @@ public class MemberView {
 	 * @return formatted string representing a member
 	 */
 	public String viewCompact(Member member){
-		String result = "";
-		//TODO: Implement this
+		String result = "Member: " + member.getName();
 		return result;
 	}
 	
@@ -32,8 +31,10 @@ public class MemberView {
 	 * @return formatted string representing a member
 	 */
 	public String viewVerbose(Member member){
-		String result = "";
-		//TODO: Implement this
+		String result = "[Member]\n";
+		result += "Name: " + member.getName() + "\n";
+		result += "Personal number: " + member.getPersonalNumber() + "\n";
+		result += "ID: " + member.getId();
 		return result;
 	}
 }
