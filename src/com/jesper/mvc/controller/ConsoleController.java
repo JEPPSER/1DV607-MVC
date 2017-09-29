@@ -1,9 +1,5 @@
 package com.jesper.mvc.controller;
 
-import java.util.ArrayList;
-
-import com.jesper.mvc.model.Member;
-
 /**
  * 
  * @author Oskar
@@ -11,13 +7,12 @@ import com.jesper.mvc.model.Member;
  */
 public class ConsoleController {
 	
-	ArrayList<Member> memberList;
-	
-	MemberController memberCtrl;
-	BoatController boatCtrl;
+	MemberController memberController;
+	BoatController boatController;
 	
 	public ConsoleController(/*Controller controller*/) {
-		
+		this.memberController = new MemberController();
+		this.boatController = new BoatController();
 	}
 	
 	public void start() {
