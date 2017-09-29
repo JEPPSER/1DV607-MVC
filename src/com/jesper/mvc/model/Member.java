@@ -1,5 +1,12 @@
 package com.jesper.mvc.model;
 
+/**
+ * Class representing a member of a boat/yacht club.
+ * 
+ * @author Jesper Bergstrom
+ * @name Member.java
+ * @version 0.00.00
+ */
 public class Member {
 	
 	private String name;
