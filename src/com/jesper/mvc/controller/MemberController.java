@@ -1,36 +1,78 @@
 package com.jesper.mvc.controller;
 
 import com.jesper.mvc.model.Member;
+import com.jesper.mvc.persistence.Database;
+import com.jesper.mvc.view.MemberView;
 
 /**
+ * MemberController class that acts as a connection between the Data storage of 
+ * members and the view.
  * 
  * @author Oskar
- *
  */
-public class MemberController implements IController<Member> {
-
-	@Override
+public class MemberController {
+	
+	private Database database;
+	private MemberView memberView;
+	
+	/**
+	 * Constructs a new MemberController by initializing all members
+	 * to their default values.
+	 */
+	public MemberController() {
+		this.database = Database.getInstance();
+		this.memberView = new MemberView();
+	}
+	
+	/**
+	 * Creates a new member in the data storage using the specified member
+	 * object.
+	 * 
+	 * @param value - Member object to store.
+	 */
 	public void create(Member value) {
-		// TODO Auto-generated method stub
+		database.createMember(value);
+	}
+
+	/**
+	 * Updates a stored member with the specified ID to the specified member object.
+	 * 
+	 * @param id - ID of target member to update.
+	 * @param value - New member object to update to.
+	 */
+	public void update(int id, Member value) {
+		database.updateMember(id, value);
+	}
+
+	/**
+	 * Deletes a stored member with the specified ID.
+	 * 
+	 * @param id - ID of the target member to delete from storage.
+	 * 
+	 * @return - Deleted member object.
+	 */
+	public Member delete(int id) {
+		Member m = database.getMember(id);
+		database.deleteMember(id);
 		
+		return m;
 	}
 
-	@Override
-	public void update(Member value) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Views the member with the specified ID.
+	 * 
+	 * @param id - ID of target member to view.
+	 */
+	public void view(int id) {
+		System.out.println(this.memberView.viewCompact(database.getMember(id)));
 	}
 
-	@Override
-	public Member delete(Member value) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Views a more verbose message of the member with the specified ID.
+	 * 
+	 * @param id - ID of the target member to view.
+	 */
+	public void viewVerbose(int id) {
+		System.out.println(this.memberView.viewVerbose(database.getMember(id))); 
 	}
-
-	@Override
-	public void view(Member value) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

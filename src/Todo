@@ -1,8 +1,0 @@
-Dont hold datastructure with members like List<Member> rather 
-call the persistence directly from the Member & BoatController..
-
-example MemberController:
-
-public void create(Member m) {
-	persistence.add(m);
-}

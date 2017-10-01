@@ -1,5 +1,7 @@
 package com.jesper.mvc.model;
 
+import java.util.ArrayList;
+
 /**
  * Class representing a member of a boat/yacht club.
  * 
@@ -12,7 +14,16 @@ public class Member {
 	private String name;
 	private int personalNumber;
 	private int id;
-	// TODO: Add list of boats.
+	private ArrayList<Boat> boats;
+	
+	public Member() {
+		this.boats = new ArrayList<>();
+	}
+	
+	public Member(String name, int personalNumber) {
+		this.name = name;
+		this.personalNumber = personalNumber;
+	}
 	
 	/**
 	 * @return name
@@ -60,5 +71,27 @@ public class Member {
 	 */
 	public void setId(int id){
 		this.id = id;
+	}
+
+	/**
+	 * @return the boats
+	 */
+	public ArrayList<Boat> getBoats() {
+		return boats;
+	}
+
+	/**
+	 * @param boats the boats to set
+	 */
+	public void addBoat(Boat boat) {
+		this.boats.add(boat);
+	}
+	
+	/**
+	 * 
+	 * @param boat
+	 */
+	public void removeBoat(Boat boat) {
+		this.boats.remove(boat);
 	}
 }
