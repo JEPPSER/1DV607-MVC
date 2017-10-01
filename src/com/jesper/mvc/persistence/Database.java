@@ -90,4 +90,8 @@ public class Database {
 			System.out.println(m.getName());
 		}
 	}
+	
+	public int getTotalMembers() {
+		return this.members.size();
+	}
 }

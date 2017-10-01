@@ -44,4 +44,7 @@ public class MemberController implements IController<Member> {
 		//TODO: Send to member view.
 	}
 
+	public void viewVerbose(int id) {
+		//TODO: 
+	}
 }
