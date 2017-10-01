@@ -20,6 +20,11 @@ public class Member {
 		this.boats = new ArrayList<>();
 	}
 	
+	public Member(String name, int personalNumber) {
+		this.name = name;
+		this.personalNumber = personalNumber;
+	}
+	
 	/**
 	 * @return name
 	 */
