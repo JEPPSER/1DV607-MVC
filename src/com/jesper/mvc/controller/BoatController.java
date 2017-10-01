@@ -1,36 +1,38 @@
 package com.jesper.mvc.controller;
 
 import com.jesper.mvc.model.Boat;
+import com.jesper.mvc.persistence.Database;
 
 /**
  * 
  * @author Oskar
  *
  */
-public class BoatController implements IController<Boat>{
+public class BoatController {
+	
+	private Database database;
+	
+	/**
+	 * 
+	 * @param database
+	 */
+	public BoatController(Database database) {
+		this.database = database;
+	}
+	
+	public void create(int memberId, Boat value) {
+		this.database.getMember(memberId).addBoat(value);
+	}
 
-	@Override
-	public void create(Boat value) {
-		// TODO Auto-generated method stub
+	public void update(int memberId, Boat value) {
 		
 	}
 
-	@Override
-	public void update(Boat value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Boat delete(Boat value) {
-		// TODO Auto-generated method stub
+	public Boat delete(int memberId, Boat value) {
 		return null;
 	}
 
-	@Override
 	public void view(Boat value) {
-		// TODO Auto-generated method stub
 		
 	}
-
 }

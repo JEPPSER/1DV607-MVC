@@ -1,5 +1,7 @@
 package com.jesper.mvc.controller;
 
+import com.jesper.mvc.persistence.Database;
+
 /**
  * 
  * @author Oskar
@@ -7,11 +9,13 @@ package com.jesper.mvc.controller;
  */
 public class ConsoleController {
 	
+	Database database;
 	MemberController memberController;
 	BoatController boatController;
 	
 	public ConsoleController(/*Controller controller*/) {
-		this.memberController = new MemberController();
+		this.database = new Database();
+		this.memberController = new MemberController(this.database);
 		this.boatController = new BoatController();
 	}
 	
@@ -21,6 +25,7 @@ public class ConsoleController {
 			
 			switch(cmd) {
 			case 1:
+				
 				break;
 			default:
 				break;

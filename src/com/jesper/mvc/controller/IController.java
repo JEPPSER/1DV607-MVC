@@ -16,21 +16,22 @@ public interface IController<T> {
 	
 	/**
 	 * 
+	 * @param id
 	 * @param value
 	 */
-	public void update(T value);
+	public void update(int id, T value);
 	
 	/**
 	 * 
-	 * @param value
+	 * @param id
 	 * @return
 	 */
-	public T delete(T value);
+	public T delete(int id);
 	
 	/**
 	 * 
 	 * @param value
 	 */
-	public void view(T value);
+	public void view(int id);
 	
 }
