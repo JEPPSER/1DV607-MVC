@@ -61,18 +61,18 @@ public class MemberController {
 	/**
 	 * Views the member with the specified ID.
 	 * 
-	 * @param id - ID of target member to view.
+	 * @param index - Index of target member to view.
 	 */
-	public void view(int id) {
-		System.out.println(this.memberView.viewCompact(database.getMember(id)));
+	public void view(int index) {
+		System.out.println(this.memberView.viewCompact(database.getMemberAt(index)));
 	}
 
 	/**
 	 * Views a more verbose message of the member with the specified ID.
 	 * 
-	 * @param id - ID of the target member to view.
+	 * @param index - Index of the target member to view.
 	 */
-	public void viewVerbose(int id) {
-		System.out.println(this.memberView.viewVerbose(database.getMember(id))); 
+	public void viewVerbose(int index) {
+		System.out.println(this.memberView.viewVerbose(database.getMemberAt(index))); 
 	}
 }

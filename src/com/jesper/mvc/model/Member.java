@@ -79,6 +79,13 @@ public class Member {
 	public ArrayList<Boat> getBoats() {
 		return boats;
 	}
+	
+	/**
+	 * @param boats
+	 */
+	public void setBoats(ArrayList<Boat> boats) {
+		this.boats = boats;
+	}
 
 	/**
 	 * @param boats the boats to set

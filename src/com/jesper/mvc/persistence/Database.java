@@ -76,10 +76,27 @@ public class Database {
 	 * 
 	 * @param id - ID for target member.
 	 * 
-	 * @return - Member retrieved from specified ID.
+	 * @return - Member retrieved from specified ID; null if not found.
 	 */
 	public Member getMember(int id) {
-		return this.members.get(id);
+		for (Member m : this.members) {
+			if (m.getId() == id) {
+				return m;
+			}
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Retrieves Member at the target index from storage.
+	 * 
+	 * @param index - Index of target member.
+	 * 
+	 * @return - Member retrieved from specified index.
+	 */
+	public Member getMemberAt(int index) {
+		return this.members.get(index);
 	}
 	
 	/**
@@ -89,7 +106,13 @@ public class Database {
 	 * @param m - Member object to replace the old one with.
 	 */
 	public void updateMember(int id, Member m) {
-		this.members.set(id, m);
+		for (Member member : this.members) {
+			if (member.getId() == id) {
+				int i = this.members.indexOf(member);
+				m.setBoats(this.members.get(i).getBoats());
+				this.members.set(i, m);
+			}
+		}
 	}
 	
 	/**
@@ -98,7 +121,11 @@ public class Database {
 	 * @param id - ID for target member to delete.
 	 */
 	public void deleteMember(int id) {
-		this.members.remove(id);
+		for (Member m : this.members) {
+			if (m.getId() == id) {
+				this.members.remove(m);
+			}
+		}
 	}
 	
 	/**

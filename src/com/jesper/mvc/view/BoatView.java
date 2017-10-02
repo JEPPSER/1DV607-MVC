@@ -17,7 +17,7 @@ public class BoatView {
 	 * @return string
 	 */
 	public String view(Boat boat){
-		String result = "Boat: " + boat.getType();
+		String result = "Boat: " + boat.getLength() + ", " + boat.getType();
 		return result;
 	}
 }

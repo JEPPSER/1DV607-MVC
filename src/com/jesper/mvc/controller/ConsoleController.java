@@ -1,6 +1,7 @@
 package com.jesper.mvc.controller;
 
 import com.jesper.mvc.model.Boat;
+import com.jesper.mvc.model.Boat.BoatType;
 import com.jesper.mvc.model.Member;
 import com.jesper.mvc.persistence.Database;
 import com.jesper.mvc.view.ConsoleView;
@@ -97,9 +98,25 @@ public class ConsoleController {
 					Member member = this.database.getMember(memId);
 					
 					double length = Double.parseDouble(console.getInput("Boat Length: "));
+					BoatType boatType = null;
+					String type = console.getInput("Boat Type(Sailboat, Motorsailer, Canoe, Other): ");
+					type.toLowerCase();
+					
+					if (type.equalsIgnoreCase("Sailboat")) {
+						boatType = BoatType.Sailboat;
+					} else if (type.equalsIgnoreCase("Motorsailer")) {
+						boatType = BoatType.Motorsailer;
+					} else if (type.equalsIgnoreCase("Canoe")) {
+						boatType = BoatType.Canoe;
+					} else if (type.equalsIgnoreCase("Other")) {
+						boatType = BoatType.Other;
+					} else {
+						throw new IllegalStateException("Unsupported boat type.");
+					}
+					
 					Boat boat = new Boat();
 					boat.setLength(length);
-					//TODO: BoatType input
+					boat.setType(boatType);
 					
 					this.boatController.create(member, boat);
 					break;
@@ -112,7 +129,24 @@ public class ConsoleController {
 					Boat oldBoat = member.getBoats().get(Integer.parseInt(console.getInput("Boat Number: ")));
 					Boat newBoat = new Boat();
 					newBoat.setLength(Double.parseDouble(console.getInput("New Length: ")));
-					//TODO: BoatType
+					
+					BoatType boatType = null;
+					String type = console.getInput("Boat Type(Sailboat, Motorsailer, Canoe, Other): ");
+					type.toLowerCase();
+					
+					if (type.equalsIgnoreCase("Sailboat")) {
+						boatType = BoatType.Sailboat;
+					} else if (type.equalsIgnoreCase("Motorsailer")) {
+						boatType = BoatType.Motorsailer;
+					} else if (type.equalsIgnoreCase("Canoe")) {
+						boatType = BoatType.Canoe;
+					} else if (type.equalsIgnoreCase("Other")) {
+						boatType = BoatType.Other;
+					} else {
+						throw new IllegalStateException("Unsupported boat type.");
+					}
+					
+					newBoat.setType(boatType);
 					
 					this.boatController.update(member, oldBoat, newBoat);
 					break;

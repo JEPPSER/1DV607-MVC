@@ -37,7 +37,8 @@ public class MemberView {
 		result += "ID: " + member.getId() + "\n";
 		result += "Boats: \n";
 		for(int i=0; i < member.getBoats().size(); i++){
-			result += member.getBoats().get(i).getLength() + "\n";
+			result += member.getBoats().get(i).getLength() + ", ";
+			result += member.getBoats().get(i).getType() + "\n";
 		}
 		return result;
 	}
