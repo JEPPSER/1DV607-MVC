@@ -1,10 +1,9 @@
 package com.jesper.mvc.controller;
 
-import java.util.Scanner;
-
 import com.jesper.mvc.model.Boat;
 import com.jesper.mvc.model.Member;
 import com.jesper.mvc.persistence.Database;
+import com.jesper.mvc.view.ConsoleView;
 
 /**
  * ConsoleController handles actions to take depending on the console input retrieved from the ConsoleView.
@@ -16,12 +15,14 @@ public class ConsoleController {
 	private Database database;
 	private MemberController memberController;
 	private BoatController boatController;
+	private ConsoleView console;
 	
 	/**
 	 * Default constructor for the ConsoleController that initializes all the
 	 * members to default values.
 	 */
-	public ConsoleController(/*Controller controller*/) {
+	public ConsoleController(ConsoleView console) {
+		this.console = console;
 		this.database = Database.getInstance();
 		this.memberController = new MemberController();
 		this.boatController = new BoatController();
@@ -32,12 +33,10 @@ public class ConsoleController {
 	 * call proper methods from ConsoleView to retrieve its input.
 	 */
 	public void start() {
-		Scanner scan = new Scanner(System.in);
-		
-		int cmd = scan.nextInt();
-		scan.close();
-		
-		while (true /*cmd = controller.getCommand()*/) {
+		while (true) {
+			
+			// get input
+			int cmd = Integer.parseInt(console.getInput(console.displayCommands()));
 			
 			switch(cmd) {
 			case 1: /* View All Members */
@@ -61,71 +60,81 @@ public class ConsoleController {
 				}
 			case 3: /* Create Member */
 				{
-					//TODO: Get Name input and personal number input..
-					
-					this.memberController.create(new Member());
+					Member member = new Member();
+					member.setName(console.getInput("Name: "));
+					member.setPersonalNumber(Integer.parseInt(console.getInput("Personal Number: ")));
+					this.memberController.create(member);
 					break;
 				}
 			case 4: /* Update Member */
 				{
-					//TODO: input for member id and values to update to..
+					int memId = Integer.parseInt(console.getInput("Member id: "));
 					
-					this.memberController.update(0, new Member());
+					Member newMember = new Member();
+					newMember.setName(console.getInput("New Name: "));
+					newMember.setPersonalNumber(Integer.parseInt(console.getInput("New Personal Number: ")));
+					
+					this.memberController.update(memId, newMember);
 					break;
 				}
 			case 5: /* Delete Member */
 				{
-					// TODO: input for member id..
+					int memId = Integer.parseInt(console.getInput("Member id: "));
 					
-					this.memberController.delete(0);
+					this.memberController.delete(memId);
 					break;
 				}
 			case 6: /* View Member */
 				{
-					//TODO: Input for member id..
-					this.memberController.view(0);
+					int memId = Integer.parseInt(console.getInput("Member id: "));
+					
+					this.memberController.view(memId);
 					break;
 				}
 			case 7: /* Create Boat */
 				{
-					//TODO: 
-					// 1. Get Target member through input.
-					// 3. Get New Boat info through input.
-					this.database.getMember(0);
+					int memId = Integer.parseInt(console.getInput("Member id: "));
+					Member member = this.database.getMember(memId);
 					
-					this.boatController.create(new Member(), new Boat());
+					double length = Double.parseDouble(console.getInput("Boat Length: "));
+					Boat boat = new Boat();
+					boat.setLength(length);
+					//TODO: BoatType input
+					
+					this.boatController.create(member, boat);
 					break;
 				}
 			case 8: /* Update Boat */
 				{
-					//TODO:
-					// 1. Get Target member through input
-					// 2. Get BoatNr in member list through input.
-					// 3. Get New Boat info to update old boat too..
+					int memId = Integer.parseInt(console.getInput("Member id: "));
+					Member member = database.getMember(memId);
 					
+					Boat oldBoat = member.getBoats().get(Integer.parseInt(console.getInput("Boat Number: ")));
+					Boat newBoat = new Boat();
+					newBoat.setLength(Double.parseDouble(console.getInput("New Length: ")));
+					//TODO: BoatType
 					
-					this.boatController.update(new Member(), new Boat(), new Boat());
+					this.boatController.update(member, oldBoat, newBoat);
 					break;
 				}
 			case 9: /* Delete Boat */
 				{
-					//TODO:
-					// 1. Get Member through MemberId through input
-					// 2. Get BoatNr in member list through input.
-					// 3. Get boat obj based on that number..
+					int memId = Integer.parseInt(console.getInput("Member id: "));
+					Member member = database.getMember(memId);
 					
+					Boat boat = member.getBoats().get(Integer.parseInt(console.getInput("Boat Number: ")));
 					
-					this.boatController.delete(new Member(), new Boat());
+					this.boatController.delete(member, boat);
 					break;
 				}
 			case 10: /* View Boat */
 				{
-					//TODO:
-					// 1. Get MemberId through input
-					// 2. Get BoatNr in member list through input.
-					// 3. Get boat obj based on that number..
+					int memId = Integer.parseInt(console.getInput("Member id: "));
+					Member member = database.getMember(memId);
 					
-					this.boatController.view(new Boat());
+					Boat boat = member.getBoats().get(Integer.parseInt(console.getInput("Boat Number: ")));
+					
+					this.boatController.view(boat);
 					break;
 				}
 			case 11: /* Quit application. */

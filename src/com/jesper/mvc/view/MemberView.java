@@ -34,7 +34,11 @@ public class MemberView {
 		String result = "[Member]\n";
 		result += "Name: " + member.getName() + "\n";
 		result += "Personal number: " + member.getPersonalNumber() + "\n";
-		result += "ID: " + member.getId();
+		result += "ID: " + member.getId() + "\n";
+		result += "Boats: \n";
+		for(int i=0; i < member.getBoats().size(); i++){
+			result += member.getBoats().get(i).getLength() + "\n";
+		}
 		return result;
 	}
 }

@@ -1,6 +1,6 @@
 package com.jesper.mvc.view;
 
-import com.jesper.mvc.controller.ConsoleController;
+import java.util.Scanner;
 
 /**
  * Class that prints information for the user
@@ -12,23 +12,24 @@ import com.jesper.mvc.controller.ConsoleController;
  */
 public class ConsoleView {
 	
-	private ConsoleController controller = new ConsoleController();
+	private Scanner scan = new Scanner(System.in);
 	
 	/**
 	 * Calls start() in ConsoleController and waits for user input. 
 	 * 
-	 * @return int
+	 * @return String
 	 */
-	public int getInput(){
-		controller.start();
-		return 0;
+	public String getInput(String str){
+		System.out.println(str);
+		String input = scan.nextLine();
+		return input;
 	}
 	
 	/**
 	 * Displays all available commands for the user.
 	 */
-	public void displayCommands(){
-		System.out.println("1. View All Members\n"
+	public String displayCommands(){
+		String result = "1. View All Members\n"
 				+ "2. View All Members Verbose\n"
 				+ "3. Create Member\n"
 				+ "4. Update Member\n"
@@ -38,6 +39,7 @@ public class ConsoleView {
 				+ "8. Update Boat\n"
 				+ "9. Delete Boat\n"
 				+ "10. View Boat\n"
-				+ "11. Quit");
-	}
+				+ "11. Quit";
+		return result;
+	}	
 }

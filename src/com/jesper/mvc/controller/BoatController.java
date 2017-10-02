@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.jesper.mvc.model.Boat;
 import com.jesper.mvc.model.Member;
+import com.jesper.mvc.view.BoatView;
 
 /**
  * MemberController class that acts as a connection between the Data storage of 
@@ -13,16 +14,14 @@ import com.jesper.mvc.model.Member;
  */
 public class BoatController {
 	
-	//TODO: Uncomment when implemented.
-	//private BoatView boatView;
+	private BoatView boatView;
 	
 	/**
 	 * Constructs a new BoatController by initializing all members
 	 * to their default values.
 	 */
 	public BoatController() {
-		//TODO: Uncomment when implemented.
-		//this.boatView = new BoatView();
+		this.boatView = new BoatView();
 	}
 	
 	/**
@@ -78,7 +77,6 @@ public class BoatController {
 	 * @param value - Target boat to view.
 	 */
 	public void view(Boat value) {
-		//TODO: Uncomment when implemented.
-		//this.boatView.view(value);
+		this.boatView.view(value);
 	}
 }
