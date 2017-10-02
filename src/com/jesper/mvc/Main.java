@@ -1,12 +1,14 @@
 package com.jesper.mvc;
 
-import com.jesper.mvc.controller.ConsoleController;
+import com.jesper.mvc.view.ConsoleView;
 
 public class Main {
 
 	public static void main(String[] args) {
-		
-		ConsoleController consoleController = new ConsoleController();
-		consoleController.start();
+		ConsoleView cv = new ConsoleView();
+		cv.displayCommands();
+		while(true){
+			cv.getInput();	
+		}
 	}
 }

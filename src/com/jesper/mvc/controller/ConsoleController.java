@@ -34,7 +34,8 @@ public class ConsoleController {
 	public void start() {
 		Scanner scan = new Scanner(System.in);
 		
-		int cmd = 0;
+		int cmd = scan.nextInt();
+		scan.close();
 		
 		while (true /*cmd = controller.getCommand()*/) {
 			
