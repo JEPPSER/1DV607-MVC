@@ -1,5 +1,7 @@
 package com.jesper.mvc.controller;
 
+import java.util.ArrayList;
+
 import com.jesper.mvc.model.Boat;
 import com.jesper.mvc.model.Boat.BoatType;
 import com.jesper.mvc.model.Member;
@@ -8,8 +10,6 @@ import com.jesper.mvc.view.ConsoleView;
 
 /**
  * ConsoleController handles actions to take depending on the console input retrieved from the ConsoleView.
- * 
- * @author Oskar
  */
 public class ConsoleController {
 	
@@ -37,7 +37,7 @@ public class ConsoleController {
 		while (true) {
 			
 			// get input
-			int cmd = Integer.parseInt(console.getInput(console.displayCommands()));
+			int cmd = console.getInputNumber(console.displayCommands());
 			
 			switch(cmd) {
 			case 1: /* View All Members */
@@ -62,56 +62,133 @@ public class ConsoleController {
 			case 3: /* Create Member */
 				{
 					Member member = new Member();
-					member.setName(console.getInput("Name: "));
-					member.setPersonalNumber(Integer.parseInt(console.getInput("Personal Number: ")));
+					
+					String name = console.getInput("Name: ");
+					int personalNumber =  console.getInputNumber("Personal Number: ");
+					
+					member.setName(name);
+					member.setPersonalNumber(personalNumber);
 					this.memberController.create(member);
 					break;
 				}
 			case 4: /* Update Member */
 				{
-					int memId = Integer.parseInt(console.getInput("Member id: "));
+					int memId = console.getInputNumber("Member id: ");
+					boolean memIdExist = false;
+					
+					ArrayList<Member> members = this.database.getMembers();
+					
+					while (memIdExist == false) {
+						for (Member m : members) {
+							if (m.getId() == memId) {
+								memIdExist = true;
+								break;
+							}
+						}
+						if (memIdExist == true) {
+							break;
+						}
+						memId = console.getInputNumber("Invalid member id, Please enter a valid id: ");
+					}
 					
 					Member newMember = new Member();
 					newMember.setName(console.getInput("New Name: "));
-					newMember.setPersonalNumber(Integer.parseInt(console.getInput("New Personal Number: ")));
+					newMember.setPersonalNumber(console.getInputNumber("New Personal Number: "));
 					
 					this.memberController.update(memId, newMember);
 					break;
 				}
 			case 5: /* Delete Member */
 				{
-					int memId = Integer.parseInt(console.getInput("Member id: "));
+					int memId = console.getInputNumber("Member id: ");
+					boolean memIdExist = false;
+					
+					ArrayList<Member> members = this.database.getMembers();
+					
+					while (memIdExist == false) {
+						for (Member m : members) {
+							if (m.getId() == memId) {
+								memIdExist = true;
+								break;
+							}
+						}
+						if (memIdExist == true) {
+							break;
+						}
+						memId = console.getInputNumber("Invalid member id, Please enter a valid id: ");
+					}
 					
 					this.memberController.delete(memId);
 					break;
 				}
 			case 6: /* View Member */
 				{
-					int memId = Integer.parseInt(console.getInput("Member id: "));
+					int memId = console.getInputNumber("Member id: ");
+					boolean memIdExist = false;
+					
+					ArrayList<Member> members = this.database.getMembers();
+					
+					while (memIdExist == false) {
+						for (Member m : members) {
+							if (m.getId() == memId) {
+								memIdExist = true;
+								break;
+							}
+						}
+						if (memIdExist == true) {
+							break;
+						}
+						memId = console.getInputNumber("Invalid member id, Please enter a valid id: ");
+					}
 					
 					this.memberController.view(memId);
 					break;
 				}
 			case 7: /* Create Boat */
 				{
-					int memId = Integer.parseInt(console.getInput("Member id: "));
+					int memId = console.getInputNumber("Member id: ");
+					boolean memIdExist = false;
+					
+					ArrayList<Member> members = this.database.getMembers();
+					
+					while (memIdExist == false) {
+						for (Member m : members) {
+							if (m.getId() == memId) {
+								memIdExist = true;
+								break;
+							}
+						}
+						if (memIdExist == true) {
+							break;
+						}
+						memId = console.getInputNumber("Invalid member id, Please enter a valid id: ");
+					}
+					
 					Member member = this.database.getMember(memId);
 					
-					double length = Double.parseDouble(console.getInput("Boat Length: "));
+					double length = console.getInputDouble("Boat Length: ");
 					BoatType boatType = null;
 					String type = console.getInput("Boat Type(Sailboat, Motorsailer, Canoe, Other): ");
 					type.toLowerCase();
 					
-					if (type.equalsIgnoreCase("Sailboat")) {
-						boatType = BoatType.Sailboat;
-					} else if (type.equalsIgnoreCase("Motorsailer")) {
-						boatType = BoatType.Motorsailer;
-					} else if (type.equalsIgnoreCase("Canoe")) {
-						boatType = BoatType.Canoe;
-					} else if (type.equalsIgnoreCase("Other")) {
-						boatType = BoatType.Other;
-					} else {
-						throw new IllegalStateException("Unsupported boat type.");
+					boolean invalidBoatType = true;
+					
+					while (invalidBoatType) {
+						if (type.equalsIgnoreCase("Sailboat")) {
+							boatType = BoatType.Sailboat;
+							invalidBoatType = false;
+						} else if (type.equalsIgnoreCase("Motorsailer")) {
+							boatType = BoatType.Motorsailer;
+							invalidBoatType = false;
+						} else if (type.equalsIgnoreCase("Canoe")) {
+							boatType = BoatType.Canoe;
+							invalidBoatType = false;
+						} else if (type.equalsIgnoreCase("Other")) {
+							boatType = BoatType.Other;
+							invalidBoatType = false;
+						} else {
+							type = console.getInput("Invalid Boat Type, Enter one of the following: Sailboat, Motorsailer, Canoe or Other: ");
+						}
 					}
 					
 					Boat boat = new Boat();
@@ -123,27 +200,57 @@ public class ConsoleController {
 				}
 			case 8: /* Update Boat */
 				{
-					int memId = Integer.parseInt(console.getInput("Member id: "));
-					Member member = database.getMember(memId);
+					int memId = console.getInputNumber("Member id: ");
+					boolean memIdExist = false;
 					
-					Boat oldBoat = member.getBoats().get(Integer.parseInt(console.getInput("Boat Number: ")));
+					ArrayList<Member> members = this.database.getMembers();
+					
+					while (memIdExist == false) {
+						for (Member m : members) {
+							if (m.getId() == memId) {
+								memIdExist = true;
+								break;
+							}
+						}
+						if (memIdExist == true) {
+							break;
+						}
+						memId = console.getInputNumber("Invalid member id, Please enter a valid id: ");
+					}
+					
+					Member member = database.getMember(memId);
+					int boatIndex = console.getInputNumber("Boat Number: ");
+					
+					while (boatIndex < 0 || boatIndex > member.getBoats().size()) {
+						boatIndex = console.getInputNumber("Invalid Boat Number, try again: ");
+					}
+					
+					Boat oldBoat = member.getBoats().get(boatIndex);
 					Boat newBoat = new Boat();
-					newBoat.setLength(Double.parseDouble(console.getInput("New Length: ")));
+					newBoat.setLength(console.getInputDouble("New Length: "));
 					
 					BoatType boatType = null;
 					String type = console.getInput("Boat Type(Sailboat, Motorsailer, Canoe, Other): ");
 					type.toLowerCase();
 					
-					if (type.equalsIgnoreCase("Sailboat")) {
-						boatType = BoatType.Sailboat;
-					} else if (type.equalsIgnoreCase("Motorsailer")) {
-						boatType = BoatType.Motorsailer;
-					} else if (type.equalsIgnoreCase("Canoe")) {
-						boatType = BoatType.Canoe;
-					} else if (type.equalsIgnoreCase("Other")) {
-						boatType = BoatType.Other;
-					} else {
-						throw new IllegalStateException("Unsupported boat type.");
+					boolean invalidBoatType = true;
+					
+					while (invalidBoatType) {
+						if (type.equalsIgnoreCase("Sailboat")) {
+							boatType = BoatType.Sailboat;
+							invalidBoatType = false;
+						} else if (type.equalsIgnoreCase("Motorsailer")) {
+							boatType = BoatType.Motorsailer;
+							invalidBoatType = false;
+						} else if (type.equalsIgnoreCase("Canoe")) {
+							boatType = BoatType.Canoe;
+							invalidBoatType = false;
+						} else if (type.equalsIgnoreCase("Other")) {
+							boatType = BoatType.Other;
+							invalidBoatType = false;
+						} else {
+							type = console.getInput("Invalid Boat Type, Enter one of the following: Sailboat, Motorsailer, Canoe or Other: ");
+						}
 					}
 					
 					newBoat.setType(boatType);
@@ -153,20 +260,64 @@ public class ConsoleController {
 				}
 			case 9: /* Delete Boat */
 				{
-					int memId = Integer.parseInt(console.getInput("Member id: "));
+					int memId = console.getInputNumber("Member id: ");
+					boolean memIdExist = false;
+					
+					ArrayList<Member> members = this.database.getMembers();
+					
+					while (memIdExist == false) {
+						for (Member m : members) {
+							if (m.getId() == memId) {
+								memIdExist = true;
+								break;
+							}
+						}
+						if (memIdExist == true) {
+							break;
+						}
+						memId = console.getInputNumber("Invalid member id, Please enter a valid id: ");
+					}
 					Member member = database.getMember(memId);
 					
-					Boat boat = member.getBoats().get(Integer.parseInt(console.getInput("Boat Number: ")));
+					int boatIndex = console.getInputNumber("Boat Number: ");
+					
+					while (boatIndex < 0 || boatIndex > member.getBoats().size()) {
+						boatIndex = console.getInputNumber("Invalid Boat Number, try again: ");
+					}
+					
+					Boat boat = member.getBoats().get(boatIndex);
 					
 					this.boatController.delete(member, boat);
 					break;
 				}
 			case 10: /* View Boat */
 				{
-					int memId = Integer.parseInt(console.getInput("Member id: "));
+					int memId = console.getInputNumber("Member id: ");
+					boolean memIdExist = false;
+					
+					ArrayList<Member> members = this.database.getMembers();
+					
+					while (memIdExist == false) {
+						for (Member m : members) {
+							if (m.getId() == memId) {
+								memIdExist = true;
+								break;
+							}
+						}
+						if (memIdExist == true) {
+							break;
+						}
+						memId = console.getInputNumber("Invalid member id, Please enter a valid id: ");
+					}
 					Member member = database.getMember(memId);
 					
-					Boat boat = member.getBoats().get(Integer.parseInt(console.getInput("Boat Number: ")));
+					int boatIndex = console.getInputNumber("Boat Number: ");
+					
+					while (boatIndex < 0 || boatIndex > member.getBoats().size()) {
+						boatIndex = console.getInputNumber("Invalid Boat Number, try again: ");
+					}
+					
+					Boat boat = member.getBoats().get(boatIndex);
 					
 					this.boatController.view(boat);
 					break;

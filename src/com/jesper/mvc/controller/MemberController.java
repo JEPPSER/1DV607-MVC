@@ -7,8 +7,6 @@ import com.jesper.mvc.view.MemberView;
 /**
  * MemberController class that acts as a connection between the Data storage of 
  * members and the view.
- * 
- * @author Oskar
  */
 public class MemberController {
 	
@@ -64,7 +62,7 @@ public class MemberController {
 	 * @param index - Index of target member to view.
 	 */
 	public void view(int index) {
-		System.out.println(this.memberView.viewCompact(database.getMemberAt(index)));
+		this.memberView.viewCompact(database.getMemberAt(index));
 	}
 
 	/**
@@ -73,6 +71,6 @@ public class MemberController {
 	 * @param index - Index of the target member to view.
 	 */
 	public void viewVerbose(int index) {
-		System.out.println(this.memberView.viewVerbose(database.getMemberAt(index))); 
+		this.memberView.viewVerbose(database.getMemberAt(index)); 
 	}
 }

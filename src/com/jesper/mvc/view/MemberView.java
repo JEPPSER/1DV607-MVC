@@ -5,7 +5,6 @@ import com.jesper.mvc.model.Member;
 /**
  * Class for representing a Member graphically.
  * 
- * @author Jesper Bergstrom
  * @name MemberView.java
  * @version 0.00.00
  */
@@ -18,9 +17,11 @@ public class MemberView {
 	 * @param member
 	 * @return formatted string representing a member
 	 */
-	public String viewCompact(Member member){
-		String result = "Member: " + member.getName();
-		return result;
+	public void viewCompact(Member member){
+		String result = "Member: " + member.getName() + "\n";
+		result += "ID: " + member.getId() + "\n";
+		result += "Boat count: " + member.getBoats().size() + "\n";
+		System.out.println(result);
 	}
 	
 	/**
@@ -30,7 +31,7 @@ public class MemberView {
 	 * @param member
 	 * @return formatted string representing a member
 	 */
-	public String viewVerbose(Member member){
+	public void viewVerbose(Member member){
 		String result = "[Member]\n";
 		result += "Name: " + member.getName() + "\n";
 		result += "Personal number: " + member.getPersonalNumber() + "\n";
@@ -38,8 +39,9 @@ public class MemberView {
 		result += "Boats: \n";
 		for(int i=0; i < member.getBoats().size(); i++){
 			result += member.getBoats().get(i).getLength() + ", ";
-			result += member.getBoats().get(i).getType() + "\n";
+			result += member.getBoats().get(i).getType() + "\n"; 
 		}
-		return result;
+		
+		System.out.println(result);
 	}
 }

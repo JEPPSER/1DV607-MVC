@@ -6,7 +6,6 @@ import java.util.Scanner;
  * Class that prints information for the user
  * to the console.
  * 
- * @author Jesper Bergstrom
  * @name ConsoleView.java
  * @version 0.00.00
  */
@@ -15,13 +14,56 @@ public class ConsoleView {
 	private Scanner scan = new Scanner(System.in);
 	
 	/**
-	 * Calls start() in ConsoleController and waits for user input. 
+	 * Retrieved user input. 
 	 * 
-	 * @return String
+	 * @return String - String of user input.
 	 */
 	public String getInput(String str){
 		System.out.println(str);
-		String input = scan.nextLine();
+		String input = "";
+		
+		while ((input = scan.nextLine()).isEmpty()) {
+			System.out.print("Input was empty, please enter " + str);
+		}
+		
+		return input;
+	}
+	
+	/**
+	 * Retrieves an integer from user input. 
+	 * 
+	 * @return Integer - Integer retrieved from user input.
+	 */
+	public int getInputNumber(String str) {
+		System.out.println(str);
+		int input;
+		
+		while (!scan.hasNextInt()) {
+			scan.next();
+			System.out.print("Input was not a valid number. Please enter a number: ");
+		}
+		
+		input = scan.nextInt();
+		scan.nextLine();
+		return input;
+	}
+	
+	/**
+	 * Retrieves an double from user input. 
+	 * 
+	 * @return Double - Double retrieved from user input.
+	 */
+	public double getInputDouble(String str) {
+		System.out.println(str);
+		double input;
+		
+		while (!scan.hasNextDouble()) {
+			scan.next();
+			System.out.print("Input was not a valid number. Please enter a number: ");
+		}
+		
+		input = scan.nextDouble();
+		scan.nextLine();
 		return input;
 	}
 	

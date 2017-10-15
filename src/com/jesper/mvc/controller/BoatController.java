@@ -9,8 +9,6 @@ import com.jesper.mvc.view.BoatView;
 /**
  * MemberController class that acts as a connection between the Data storage of 
  * boats and the view.
- * 
- * @author Oskar
  */
 public class BoatController {
 	

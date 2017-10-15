@@ -5,7 +5,6 @@ import java.util.ArrayList;
 /**
  * Class representing a member of a boat/yacht club.
  * 
- * @author Jesper Bergstrom
  * @name Member.java
  * @version 0.00.00
  */

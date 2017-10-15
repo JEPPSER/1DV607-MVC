@@ -2,8 +2,6 @@ package com.jesper.mvc.model;
 
 /**
  * Class representing a Boat.
- * 
- * @author Oskar
  */
 public class Boat {
 	

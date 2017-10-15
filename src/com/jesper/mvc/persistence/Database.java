@@ -17,8 +17,6 @@ import com.jesper.mvc.model.Member;
  * Database class that acts as a data storage using JSON for the entire application.
  * Retrieving objects stored and modifying them goes through this class. This class is implemented
  * as a singleton to prevent multiple users.
- * 
- * @author Oskar
  */
 public class Database {
 	
@@ -110,6 +108,7 @@ public class Database {
 			if (member.getId() == id) {
 				int i = this.members.indexOf(member);
 				m.setBoats(this.members.get(i).getBoats());
+				m.setId(this.members.get(i).getId());
 				this.members.set(i, m);
 			}
 		}
@@ -121,11 +120,20 @@ public class Database {
 	 * @param id - ID for target member to delete.
 	 */
 	public void deleteMember(int id) {
-		for (Member m : this.members) {
-			if (m.getId() == id) {
-				this.members.remove(m);
+		for (int i = 0; i < this.members.size(); i++) {
+			if (this.members.get(i).getId() == id) {
+				this.members.remove(i);
 			}
 		}
+	}
+	
+	/**
+	 * Getter for the ArrayList storage of Members.
+	 * 
+	 * @return ArrayList of all members.
+	 */
+	public ArrayList<Member> getMembers() {
+		return this.members;
 	}
 	
 	/**
