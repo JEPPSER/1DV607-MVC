@@ -1,5 +1,7 @@
 package BlackJack.model;
 
+import BlackJack.model.rules.IObserver;
+
 public class Game {
 
   private Dealer m_dealer;
@@ -10,7 +12,11 @@ public class Game {
     m_dealer = new Dealer(new BlackJack.model.rules.RulesFactory());
     m_player = new Player();
   }
-    
+  
+  public void addObserver(IObserver observer) {
+	  m_dealer.addObserver(observer);
+	  m_player.addObserver(observer);
+  }
     
   public boolean IsGameOver()
   {
@@ -35,7 +41,7 @@ public class Game {
   public boolean Stand()
   {
     // TODO: Implement this according to Game_Stand.sequencediagram
-    return true;
+	return m_dealer.Stand();
   }
   
   public Iterable<Card> GetDealerHand()

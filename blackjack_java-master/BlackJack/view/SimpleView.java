@@ -1,5 +1,7 @@
 package BlackJack.view;
 
+import BlackJack.controller.Actions;
+
 public class SimpleView implements IView 
 {
 
@@ -10,17 +12,31 @@ public class SimpleView implements IView
           System.out.println("Type 'p' to Play, 'h' to Hit, 's' to Stand or 'q' to Quit\n");
         }
 
-        public int GetInput()
+        public Actions GetInput()
         {
           try {
             int c = System.in.read();
             while (c == '\r' || c =='\n') {
               c = System.in.read();
             }
-            return c;
+            
+            switch (c)
+            {
+            case 'p':
+            	return Actions.PLAY;
+            case 'h':
+            	return Actions.HIT;
+            case 's':
+            	return Actions.STAND;
+            case 'q':
+            	return Actions.QUIT;
+            default:
+            	return Actions.NOACTION;
+            }
+            
           } catch (java.io.IOException e) {
             System.out.println("" + e);
-            return 0;
+            return Actions.NOACTION;
           }
         }
 
@@ -41,6 +57,8 @@ public class SimpleView implements IView
 
         private void DisplayHand(String a_name, Iterable<BlackJack.model.Card> a_hand, int a_score)
         {
+        	DisplayDelay(1250);
+        	
             System.out.println(a_name + " Has: ");
             for(BlackJack.model.Card c : a_hand)
             {
@@ -48,8 +66,10 @@ public class SimpleView implements IView
             }
             System.out.println("Score: " + a_score);
             System.out.println("");
+            
+            DisplayDelay(1250);
         }
-
+        
         public void DisplayGameOver(boolean a_dealerIsWinner)
         {
             System.out.println("GameOver: ");
@@ -62,5 +82,13 @@ public class SimpleView implements IView
                 System.out.println("You Won!");
             }
             
+        }
+        
+        public void DisplayDelay(int ms) {
+        	try {
+				Thread.sleep(ms);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
         }
     }

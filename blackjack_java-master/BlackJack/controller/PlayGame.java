@@ -2,35 +2,56 @@ package BlackJack.controller;
 
 import BlackJack.view.IView;
 import BlackJack.model.Game;
+import BlackJack.model.rules.IObserver;
 
-public class PlayGame {
+public class PlayGame implements IObserver {
+  
+  private Game m_game;
+  private IView m_view;
 
-  public boolean Play(Game a_game, IView a_view) {
-    a_view.DisplayWelcomeMessage();
+  public PlayGame(Game a_game, IView a_view) {
+    m_game = a_game;
+	m_view = a_view;
+	m_game.addObserver(this);
+  }
+  
+  public boolean Play() {
+    m_view.DisplayWelcomeMessage();
     
-    a_view.DisplayDealerHand(a_game.GetDealerHand(), a_game.GetDealerScore());
-    a_view.DisplayPlayerHand(a_game.GetPlayerHand(), a_game.GetPlayerScore());
+    m_view.DisplayDealerHand(m_game.GetDealerHand(), m_game.GetDealerScore());
+    m_view.DisplayPlayerHand(m_game.GetPlayerHand(), m_game.GetPlayerScore());
 
-    if (a_game.IsGameOver())
+    if (m_game.IsGameOver())
     {
-        a_view.DisplayGameOver(a_game.IsDealerWinner());
+        m_view.DisplayGameOver(m_game.IsDealerWinner());
     }
 
-    int input = a_view.GetInput();
+    Actions input = m_view.GetInput();
     
-    if (input == 'p')
+    switch (input)
     {
-        a_game.NewGame();
+    case PLAY:
+    	m_game.NewGame();
+    	break;
+    case HIT:
+    	m_game.Hit();
+    	break;
+    case STAND:
+    	m_game.Stand();
+    	break;
+    case QUIT:
+    	return false;
+    case NOACTION:
+	default:
+		break;
     }
-    else if (input == 'h')
-    {
-        a_game.Hit();
-    }
-    else if (input == 's')
-    {
-        a_game.Stand();
-    }
+    
+    return true;
+  }
 
-    return input != 'q';
+  @Override
+  public void update() {
+    m_view.DisplayDealerHand(m_game.GetDealerHand(), m_game.GetDealerScore());
+    m_view.DisplayPlayerHand(m_game.GetPlayerHand(), m_game.GetPlayerScore());
   }
 }
