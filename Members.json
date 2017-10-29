@@ -1,1 +1,1 @@
-[{"name":"yolo","personalNumber":69,"id":0,"totalBoats":1},{"name":"alban","personalNumber":6666,"id":1,"totalBoats":0},{"name":"johny","personalNumber":2,"id":2,"totalBoats":0},{"name":"Jacob","personalNumber":123123,"id":3,"totalBoats":1}]
+[{"name":"Janne","personalNumber":123123,"id":0,"boats":[{"type":"Canoe","length":123.0}]}]

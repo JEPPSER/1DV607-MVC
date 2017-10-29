@@ -1,6 +1,9 @@
 package com.jesper.mvc.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Class representing a member of a boat/yacht club.
@@ -75,6 +78,7 @@ public class Member {
 	/**
 	 * @return total number of boats.
 	 */
+	@JsonIgnore
 	public int getTotalBoats() {
 		return this.boats.size();
 	}
@@ -112,7 +116,20 @@ public class Member {
 	public void setBoats(ArrayList<Boat> boats) {
 		this.boats = boats;
 	}
-
+	
+	/**
+	 * Getter for all the boats for this member. Used by Json marshaller.
+	 * Creates new list and returns the new list to not allow the boat list of this
+	 * member be manipulated.
+	 * 
+	 * @return - ArrayList with all the boats for this member.
+	 */
+	public ArrayList<Boat> getBoats() {
+		ArrayList<Boat> boatList = new ArrayList<Boat>();
+		boatList.addAll(this.boats);
+		
+		return boatList;
+	}
 	/**
 	 * @param boats the boats to set
 	 */
