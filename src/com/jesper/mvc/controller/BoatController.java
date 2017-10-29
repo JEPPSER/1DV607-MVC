@@ -1,7 +1,5 @@
 package com.jesper.mvc.controller;
 
-import java.util.ArrayList;
-
 import com.jesper.mvc.model.Boat;
 import com.jesper.mvc.model.Member;
 import com.jesper.mvc.view.BoatView;
@@ -40,15 +38,13 @@ public class BoatController {
 	 * @param newVal - New value for the boat to be updated to.
 	 */
 	public void update(Member member, Boat oldValue, Boat newVal) {
-		ArrayList<Boat> memberBoats = member.getBoats();
-		
-		int i = memberBoats.indexOf(oldValue);
+		int i = member.getBoatIndex(oldValue);
 		
 		if (i == -1) {
 			throw new IllegalArgumentException("Specified Boat doesn't exist!");
 		}
 		
-		memberBoats.set(i, newVal);
+		member.setBoatAt(i, newVal);
 	}
 
 	/**
@@ -60,11 +56,10 @@ public class BoatController {
 	 * @return - Boat object that was removed.
 	 */
 	public Boat delete(Member member, Boat value) {
-		ArrayList<Boat> memberBoats = member.getBoats();
+		int i = member.getBoatIndex(value);
+		Boat b = member.getBoatAt(i);
 		
-		int i = memberBoats.indexOf(value);
-		Boat b = memberBoats.get(i);
-		memberBoats.remove(i);
+		member.removeBoat(b);
 		
 		return b;
 	}

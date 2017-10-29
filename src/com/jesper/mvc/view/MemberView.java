@@ -20,7 +20,7 @@ public class MemberView {
 	public void viewCompact(Member member){
 		String result = "Member: " + member.getName() + "\n";
 		result += "ID: " + member.getId() + "\n";
-		result += "Boat count: " + member.getBoats().size() + "\n";
+		result += "Boat count: " + member.getTotalBoats() + "\n";
 		System.out.println(result);
 	}
 	
@@ -37,9 +37,9 @@ public class MemberView {
 		result += "Personal number: " + member.getPersonalNumber() + "\n";
 		result += "ID: " + member.getId() + "\n";
 		result += "Boats: \n";
-		for(int i=0; i < member.getBoats().size(); i++){
-			result += member.getBoats().get(i).getLength() + ", ";
-			result += member.getBoats().get(i).getType() + "\n"; 
+		for(int i=0; i < member.getTotalBoats(); i++){
+			result += member.getBoatAt(i).getLength() + ", ";
+			result += member.getBoatAt(i).getType() + "\n"; 
 		}
 		
 		System.out.println(result);

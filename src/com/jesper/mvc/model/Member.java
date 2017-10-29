@@ -71,12 +71,39 @@ public class Member {
 	public void setId(int id){
 		this.id = id;
 	}
-
+	
 	/**
-	 * @return the boats
+	 * @return total number of boats.
 	 */
-	public ArrayList<Boat> getBoats() {
-		return boats;
+	public int getTotalBoats() {
+		return this.boats.size();
+	}
+	
+	/**
+	 * @param index - Index of boat to retrieve.
+	 * 
+	 * @return boat at specified index.
+	 */
+	public Boat getBoatAt(int index) {
+		return this.boats.get(index);
+	}
+	
+	/**
+	 * @param boat - Boat to get index of.
+	 * 
+	 * @return Boat at specified index.
+	 */
+	public int getBoatIndex(Boat boat) {
+		return this.boats.indexOf(boat);
+	}
+	
+	/**
+	 * @param index - Index of boat to replace.
+	 * 
+	 * @param boat - Boat to set at the specified index.
+	 */
+	public void setBoatAt(int index, Boat boat) {
+		this.boats.set(index, boat);
 	}
 	
 	/**

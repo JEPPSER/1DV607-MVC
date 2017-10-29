@@ -107,7 +107,12 @@ public class Database {
 		for (Member member : this.members) {
 			if (member.getId() == id) {
 				int i = this.members.indexOf(member);
-				m.setBoats(this.members.get(i).getBoats());
+				
+				int totalBoats = this.members.get(i).getTotalBoats();
+				for (int index = 0; index < totalBoats; i++) {
+					m.addBoat(this.members.get(i).getBoatAt(index));
+				}
+				
 				m.setId(this.members.get(i).getId());
 				this.members.set(i, m);
 			}
@@ -125,15 +130,6 @@ public class Database {
 				this.members.remove(i);
 			}
 		}
-	}
-	
-	/**
-	 * Getter for the ArrayList storage of Members.
-	 * 
-	 * @return ArrayList of all members.
-	 */
-	public ArrayList<Member> getMembers() {
-		return this.members;
 	}
 	
 	/**
