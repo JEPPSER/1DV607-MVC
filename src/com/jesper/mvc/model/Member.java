@@ -2,6 +2,7 @@ package com.jesper.mvc.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -119,16 +120,12 @@ public class Member {
 	
 	/**
 	 * Getter for all the boats for this member. Used by Json marshaller.
-	 * Creates new list and returns the new list to not allow the boat list of this
-	 * member be manipulated.
+	 * Returned as an immutable list.
 	 * 
-	 * @return - ArrayList with all the boats for this member.
+	 * @return - Immutable List with all the boats for this member.
 	 */
-	public ArrayList<Boat> getBoats() {
-		ArrayList<Boat> boatList = new ArrayList<Boat>();
-		boatList.addAll(this.boats);
-		
-		return boatList;
+	public List<Boat> getBoats() {
+		return Collections.unmodifiableList(this.boats);
 	}
 	/**
 	 * @param boats the boats to set
